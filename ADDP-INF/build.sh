@@ -7,13 +7,13 @@ ENV=$2
 port=$3
 # 寻找打包的jar包，移动到当前目录
 jar=$(find ./ -name ${APP}-start*.jar)
-mv ${jar} ./ADDP-INF/${APP}.jar
+cp ${jar} ./ADDP-INF/${APP}.jar
 build_app_image() {
     IMAGE="$(docker images|grep ${APP}:${ENV})"
-    if [[ -n ${IMAGE} ]]
+    if [ -n ${IMAGE} ]
     then
         echo "start build base image..."
-        docker build -t ${APP}:${ENV}   --build-arg APP_NAME=${APP} --build-arg ENV=${ENV} -f ./Dockerfile ./
+        docker build -t ${APP}:${ENV}   --build-arg APP_NAME=${APP} --build-arg ENV=${ENV} -f ./ADDP-INF/Dockerfile ./ADDP-INF
     else
         docker rm ${APP}:${ENV}
     fi
