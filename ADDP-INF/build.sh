@@ -18,6 +18,7 @@ copy ${jar} ./ADDP-INF/${APP}.jar
 #        docker rm ${APP}:${ENV}
 #    fi
 #}
+docker stop ${APP}-${ENV}
 docker rm ${APP}-${ENV}
 docker rmi ${APP}:${ENV}
 docker build -t ${APP}:${ENV}   --build-arg APP_NAME=${APP} --build-arg ENV=${ENV} -f ./ADDP-INF/Dockerfile ./ADDP-INF
